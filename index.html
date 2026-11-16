@@ -1,44 +1,90 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Generate custom QR codes from text or URLs. Free, fast, no sign-up." />
     <title>QR Code Generator</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="card">
-      <h1>Create Your QR Code</h1>
-      <p class="sub">Enter text or a URL to generate your code.</p>
+    <div class="bg">
+      <span class="blob b1"></span>
+      <span class="blob b2"></span>
+      <span class="blob b3"></span>
+    </div>
 
-      <label for="text">Text or URL</label>
-      <input id="text" type="text" placeholder="https://example.com" autofocus />
+    <main class="wrap">
+      <section class="card">
+        <button id="themeBtn" class="icon-btn" aria-label="Toggle light or dark theme">
+          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
 
-      <div class="row">
-        <div>
-          <label for="size">Size</label>
-          <select id="size">
-            <option value="200">200 x 200</option>
-            <option value="300" selected>300 x 300</option>
-            <option value="400">400 x 400</option>
-          </select>
+        <span class="badge">Simple &middot; Fast &middot; Useful</span>
+        <h1>Create Your <span class="grad">QR Code</span></h1>
+        <p class="sub">Enter text or a URL and get a scannable code in one click.</p>
+
+        <label for="text">Text or URL</label>
+        <div class="field" id="field">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+          <input id="text" type="text" placeholder="https://example.com" autocomplete="off" autofocus />
         </div>
-        <div>
-          <label for="fg">Color</label>
-          <input id="fg" type="color" value="#000000" />
-        </div>
-        <div>
-          <label for="bg">Background</label>
-          <input id="bg" type="color" value="#ffffff" />
-        </div>
-      </div>
 
-      <button id="generateBtn" class="primary">Generate QR Code</button>
-      <p id="msg" class="msg"></p>
+        <label>Size</label>
+        <div class="seg" id="seg">
+          <button type="button" data-size="200">200</button>
+          <button type="button" data-size="300" class="on">300</button>
+          <button type="button" data-size="400">400</button>
+        </div>
 
-      <div id="qrcode" class="qr"></div>
-      <button id="downloadBtn" class="secondary" disabled>Download QR Code</button>
+        <div class="colors">
+          <div>
+            <label for="fg">Color</label>
+            <div class="pick"><input id="fg" type="color" value="#111827" /><span id="fgHex">#111827</span></div>
+          </div>
+          <div>
+            <label for="bg">Background</label>
+            <div class="pick"><input id="bg" type="color" value="#ffffff" /><span id="bgHex">#ffffff</span></div>
+          </div>
+        </div>
+
+        <div class="presets" id="presets">
+          <button type="button" data-fg="#111827" data-bg="#ffffff" style="--a:#111827;--b:#ffffff" title="Classic"></button>
+          <button type="button" data-fg="#4f46e5" data-bg="#eef2ff" style="--a:#4f46e5;--b:#eef2ff" title="Indigo"></button>
+          <button type="button" data-fg="#047857" data-bg="#ecfdf5" style="--a:#047857;--b:#ecfdf5" title="Emerald"></button>
+          <button type="button" data-fg="#be123c" data-bg="#fff1f2" style="--a:#be123c;--b:#fff1f2" title="Rose"></button>
+          <button type="button" data-fg="#ffffff" data-bg="#111827" style="--a:#ffffff;--b:#111827" title="Inverted"></button>
+        </div>
+
+        <button id="generateBtn" class="primary">
+          <span class="label">Generate QR Code</span>
+          <span class="spinner"></span>
+        </button>
+
+        <div class="stage" id="stage">
+          <div class="placeholder">
+            <div class="scan"></div>
+            <p>Your QR code will appear here</p>
+          </div>
+          <div id="qrcode"></div>
+        </div>
+
+        <div class="actions">
+          <button id="downloadBtn" class="ghost strong" disabled>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            Download
+          </button>
+          <button id="copyBtn" class="ghost" disabled>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+            Copy
+          </button>
+        </div>
+      </section>
+      <p class="foot">Made by abukitheunique</p>
     </main>
+
+    <div id="toasts"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="script.js"></script>
