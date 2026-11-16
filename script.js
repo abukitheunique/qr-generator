@@ -134,7 +134,7 @@ text.addEventListener('keydown', (e) => {
 
 const root = document.documentElement
 try {
-  root.dataset.theme = localStorage.getItem('theme') || 'dark'
+  root.dataset.theme = localStorage.getItem('theme-v2') || 'dark'
 } catch {
   root.dataset.theme = 'dark'
 }
@@ -142,8 +142,9 @@ $('#themeBtn').addEventListener('click', () => {
   const next = root.dataset.theme === 'dark' ? 'light' : 'dark'
   root.dataset.theme = next
   try {
-    localStorage.setItem('theme', next)
+    localStorage.setItem('theme-v2', next)
   } catch {
     /* ignore */
   }
 })
+
