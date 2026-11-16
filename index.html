@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="card">
+      <h1>Create Your QR Code</h1>
+      <p class="sub">Enter text or a URL to generate your code.</p>
+
+      <label for="text">Text or URL</label>
+      <input id="text" type="text" placeholder="https://example.com" autofocus />
+
+      <div class="row">
+        <div>
+          <label for="size">Size</label>
+          <select id="size">
+            <option value="200">200 x 200</option>
+            <option value="300" selected>300 x 300</option>
+            <option value="400">400 x 400</option>
+          </select>
+        </div>
+        <div>
+          <label for="fg">Color</label>
+          <input id="fg" type="color" value="#000000" />
+        </div>
+        <div>
+          <label for="bg">Background</label>
+          <input id="bg" type="color" value="#ffffff" />
+        </div>
+      </div>
+
+      <button id="generateBtn" class="primary">Generate QR Code</button>
+      <p id="msg" class="msg"></p>
+
+      <div id="qrcode" class="qr"></div>
+      <button id="downloadBtn" class="secondary" disabled>Download QR Code</button>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
